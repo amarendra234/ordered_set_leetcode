@@ -1,0 +1,32 @@
+class NumberContainers {
+public:
+   unordered_map<int,int>umap;
+   unordered_map<int,set<int>>st;
+    NumberContainers() {
+        umap.clear();
+    }
+    
+    void change(int index, int number) {
+       if(umap.find(index)==umap.end()){
+           umap[index]=number;
+           
+       }else{
+           int num=umap[index];
+           auto it=st[num].find(index);
+           st[num].erase(it);
+           umap[index]=number;
+
+       }
+       st[number].insert(index);
+    }
+    
+    int find(int number) {
+        if(st.find(number)!=st.end()){
+            if(st[number].size()==0){
+                return -1;
+            }
+            return *(st[number].begin());
+        }
+        return -1;
+    }
+};
